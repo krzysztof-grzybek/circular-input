@@ -24,7 +24,7 @@
        (object.length === 0 || (typeof object[0] === 'object' && object[0].nodeType > 0));
   }
 
-  function circularRange (element) {
+  function circularRange (element, options) {
     if (!(this instanceof circularRange)) { // force 'new' keyword
       return new circularRange(element);
     }
@@ -45,13 +45,34 @@
       elementsAmount++;
     }
 
+    options = extend({}, circularRange.DEFAULTS, options);
+
+    this.input = element;
+    this.container = null;
+
     this.init();
     return this;
   }
 
+  circularRange.DEFAULTS = {
+
+  };
+
   circularRange.prototype = {
     init: function () {
       //console.log('init');
+    },
+    createDOM: function () {
+
+    },
+    updateValue: function () {
+
+    },
+    handleMouseMove: function () {
+
+    },
+    handleInput: function () {
+
     }
   };
 
