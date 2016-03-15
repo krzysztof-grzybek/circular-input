@@ -1,0 +1,26 @@
+.circ-range__svg {
+  width: 100px;
+  border: 1px solid black;
+  background-color: #8D8D8D;
+}
+.circ-range__whole-arc {
+  stroke-width: 3px;
+  stroke: black;
+  fill: none;
+  stroke-linecap: round;
+}
+.circ-range__active-arc {
+  stroke-width: 3px;
+  stroke: #E36716;
+  fill: none;
+  stroke-dasharray: 999px;
+  stroke-dashoffset: -50px;
+  stroke-linecap: round;
+}
+.circ-range__indicator {
+  stroke: black;
+  stroke-width: 3px;
+  transform: rotate(133deg);
+  transform-origin: 0% 0%;
+  stroke-linecap: round;
+}

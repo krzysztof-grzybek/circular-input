@@ -3,33 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <style>
-	.item {
-	height: 200px;
-	border: 1px solid black;
-      }
-  svg {
-  border: 1px solid black;
-      background-color: #8D8D8D;
-      }</style>
+    <link rel="stylesheet" href="circularRange.css">
 </head>
 <body>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<div></div>
-<svg viewBox = "0 0 36 36"  width="36" version="1.1" xmlns="http://www.w3.org/2000/svg">
 
-<path id="basic-arc" style="stroke-width: 3px; stroke: black; fill: none; stroke-linecap: round"></path>
-<path id="meter-arc" style="stroke-width: 3px; stroke: #E36716; fill: none; stroke-dasharray: 999px; stroke-dashoffset: -50px; stroke-linecap: round"></path>
-               <line x1="18" y1="18"
-          x2="18" y2="32"
-          stroke="black"
-          stroke-width="3px" style="transform: rotate(133deg);
-    transform-origin: 0% 0%; stroke-linecap: round">
-</svg>
+<div>
+  <input id="example" type="text">
+</div>
+
+<div>
+    <input class="example-1" type="text">
+    <input class="example-1" type="text">
+    <input class="example-1" type="text">
+</div>
+
 <script src="circularRange.js"></script>
+<script>
+  var example = document.getElementById('example');
+  circularRange(example, {
+    max: 50
+  });
+
+  var example2 = document.getElementsByClassName('example-1');
+  circularRange(example2);
+  </script>
 <script>
 function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
   var angleInRadians = (angleInDegrees+120) * Math.PI / 180.0; // + 90 + 30 - half of 'hole' part in arc
@@ -55,26 +52,7 @@ function describeArc(x, y, radius, startAngle, endAngle){
     return d;
 }
 document.getElementById("basic-arc").setAttribute("d", describeArc(18, 18, 14, 0, 300));
-    document.getElementById("meter-arc").setAttribute("d", describeArc(18, 18, 14, 0, 300));
-    </script>
+document.getElementById("meter-arc").setAttribute("d", describeArc(18, 18, 14, 0, 300));
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-<!--<image xlink:href="reason.png" x="0" y="0" width="36" height="36" />-->
-<!--
-  <path d="M100 299
-           A 149 149, 0, 1,1, 200 299" stroke="black" style="fill: none; stroke-width: 10px; stroke-linecap: square;"/>
-               <line x1="150" y1="150"
-          x2="150" y2="0"
-          stroke="black"
-          stroke-width="10px"/>
--->
-<!--<circle cx="18" cy="18" r="14" fill="brown" style=" stroke: brown;stroke-width: 3px; stroke-linecap: round"></circle>-->
-
