@@ -61,11 +61,13 @@
     }
 
     this.input = element;
-    this.container = null;
+    this.svgEl = null;
+    this.value = this.input.value ? Number(this.input.value) : circularRange.DEFAULTS.min;
 
     this.options = extend({}, circularRange.DEFAULTS);
     this.options = extend(this.options, this.getDomOptions());
     this.options = extend(this.options, options);
+    console.log(this.options)
 
     this.init();
     return this;
@@ -74,7 +76,8 @@
   circularRange.DEFAULTS = {
     min: 0,
     max: 100,
-    step: 1
+    step: 1,
+    sensivity: 100
   };
 
   circularRange.domStrings = {
@@ -89,37 +92,59 @@
   circularRange.prototype = {
     getDomOptions: function () {
       var domOptions = {},
-          domMinOption = this.input.getAttribute('data-min'),
-          domMaxOption = this.input.getAttribute('data-max'),
-          domStepOption = this.input.getAttribute('data-step');
+          optionNames = Object.keys(circularRange.DEFAULTS);
 
-      if (domMinOption !== null) {
-        domOptions['min'] = domMinOption;
-      }
-      if (domMaxOption !== null) {
-        domOptions['max'] = domMaxOption;
-      }
-      if (domStepOption !== null) {
-        domOptions['step'] = domStepOption;
+      for (var i = 0; i < optionNames.length; i++) {
+        var optionName = optionNames[i],
+            optionValue = this.input.getAttribute('data-' + optionName);
+
+        if (optionValue !== null) {
+          domOptions[optionName] = Number(optionValue);
+        }
       }
       return domOptions;
     },
     init: function () {
       this.createDOM();
+      this.addEventHandlers();
     },
     createDOM: function () {
-      this.container = stringToDom(circularRange.domStrings.container)[0];
-      this.input.parentNode.insertBefore(this.container, this.input);
-      this.container.innerHTML = circularRange.domStrings.svg;
-      this.container.appendChild(this.input);
+      var container = stringToDom(circularRange.domStrings.container)[0];
+      this.input.parentNode.insertBefore(container, this.input);
+      container.innerHTML = circularRange.domStrings.svg;
+      this.svgEl = container.firstChild;
+      container.appendChild(this.input);
     },
-    updateValue: function () {
+    addEventHandlers: function () {
+      var self = this;
+
+      this.svgEl.addEventListener('mousedown', function (e) {
+        e.preventDefault(); // http://stackoverflow.com/questions/9506041/javascript-events-mouseup-not-firing-after-mousemove
+        var initalMouseY = e.pageY,
+            unbindListeners = function () {
+              document.removeEventListener('mousemove', handleMouseMove);
+              document.removeEventListener('mouseup', unbindListeners);
+            },
+            handleMouseMove = function (e) {
+              self.mouseMoveValueChange(e, initalMouseY);
+            }
+
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', unbindListeners);
+      });
+    },
+    mouseMoveValueChange: function (e, initalMouseY) {
+      e.preventDefault();
+      console.log(initalMouseY)
+      //this.updateView();
+    },
+    keyboardInputValueChange: function (e) {
 
     },
-    handleMouseMove: function () {
+    mouseUpHandle: function () {
 
     },
-    handleInput: function () {
+    updateView: function () {
 
     }
   };
