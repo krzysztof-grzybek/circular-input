@@ -4,55 +4,32 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="circularRange.css">
+    <link rel="stylesheet" href="circularRangeThemeAbleton.css">
 </head>
 <body>
 
 <div>
   <input id="example" type="text">
 </div>
+<!--
 
 <div>
     <input class="example-1" type="text">
-    <input class="example-1" type="text">
+    <input class="example-1" type="text" value="10">
     <input class="example-1" data-max="80" type="text">
 </div>
+-->
 
 <script src="circularRange.js"></script>
 <script>
   var example = document.getElementById('example');
   circularRange(example, {
-    max: 50
+    max: 50,
+    theme: 'ableton'
   });
 
-  var example2 = document.getElementsByClassName('example-1');
-  circularRange(example2);
-  </script>
-<script>
-function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
-  var angleInRadians = (angleInDegrees+120) * Math.PI / 180.0; // + 90 + 30 - half of 'hole' part in arc
-
-  return {
-    x: centerX + (radius * Math.cos(angleInRadians)),
-    y: centerY + (radius * Math.sin(angleInRadians))
-  };
-}
-
-function describeArc(x, y, radius, startAngle, endAngle){
-
-    var start = polarToCartesian(x, y, radius, endAngle);
-    var end = polarToCartesian(x, y, radius, startAngle);
-
-    var arcSweep = endAngle - startAngle <= 180 ? "0" : "1";
-
-    var d = [
-        "M", start.x, start.y,
-        "A", radius, radius, 0, arcSweep, 0, end.x, end.y
-    ].join(" ");
-
-    return d;
-}
-document.getElementById("basic-arc").setAttribute("d", describeArc(18, 18, 14, 0, 300));
-document.getElementById("meter-arc").setAttribute("d", describeArc(18, 18, 14, 0, 300));
+  //var example2 = document.getElementsByClassName('example-1');
+  //circularRange(example2);
 </script>
 </body>
 </html>
