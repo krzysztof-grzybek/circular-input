@@ -5,31 +5,50 @@
     <title>Document</title>
     <link rel="stylesheet" href="circularRange.css">
     <link rel="stylesheet" href="circularRangeThemeAbleton.css">
+    <link rel="stylesheet" href="circularRangeThemeReason.css">
 </head>
 <body>
 
 <div>
-  <input id="example" type="text">
+  <input id="example-ableton" type="text">
 </div>
-<!--
-
 <div>
-    <input class="example-1" type="text">
-    <input class="example-1" type="text" value="10">
-    <input class="example-1" data-max="80" type="text">
+  <input id="example-reason" type="text">
 </div>
--->
+<div>
+  <input id="example-reason" type="text">
+</div>
+
 
 <script src="circularRange.js"></script>
 <script>
-  var example = document.getElementById('example');
-  circularRange(example, {
+  var exampleAbleton = document.getElementById('example-ableton');
+  circularRange(exampleAbleton, {
     max: 50,
     theme: 'ableton'
   });
 
-  //var example2 = document.getElementsByClassName('example-1');
-  //circularRange(example2);
+  var reasonDefs = ['<radialGradient id="myGradient">',
+     '<stop offset="65%" stop-color="#262523" stop-opacity="1"></stop>',
+      '<stop offset="85%" stop-color="#262523" stop-opacity="0.8"></stop>',
+      '<stop offset="100%" stop-color="#262523" stop-opacity="0"></stop>',
+    '</radialGradient>',
+    '<pattern id="myPattern" x="0" y="0" width="1" height="1">',
+      '<rect width="36" height="36" fill="grey"></rect>',
+      '<circle cx="-18" cy="18" r="36" fill="url(#myGradient)"></circle>',
+      '<circle cx="50" cy="18" r="36" fill="url(#myGradient)"></circle>',
+    '</pattern>',
+    '<filter id="blur-filter" x="-4" y="-4" width="200" height="200">',
+      '<feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />',
+      '<feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />',
+      '<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />',
+    '</filter>'];
+  var exampleReason = document.getElementById('example-reason');
+  circularRange(exampleReason, {
+    max: 1000,
+    theme: 'reason',
+    svgDefs: reasonDefs
+  });
 </script>
 </body>
 </html>

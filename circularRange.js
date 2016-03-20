@@ -104,10 +104,13 @@
     max: 100,
     step: 5,
     sensivity: 100,
-    theme: ''
+    theme: '',
+    svgDefs: '',
   };
 
   circularRange.CLASS_NAMES = {
+    meter: 'circ-range__meter',
+    circle: 'circ-range__circle',
     basicArc: 'circ-range__basic-arc',
     activeArc: 'circ-range__active-arc',
     indicator: 'circ-range__indicator'
@@ -124,13 +127,16 @@
     svg : ['<svg class="circ-range__svg" ',
              'viewBox="0 0 ', circularRange.DISPLAY.boxSize, ' ', circularRange.DISPLAY.boxSize , '" ',
              'version="1.1" xmlns="http://www.w3.org/2000/svg">',
+               '<defs></defs>',
+               '<path class="', circularRange.CLASS_NAMES.meter,'"></path>',
+               '<path class="', circularRange.CLASS_NAMES.circle,'"></path>',
                '<path class="', circularRange.CLASS_NAMES.basicArc, '"></path>',
                '<path class="', circularRange.CLASS_NAMES.activeArc, '"></path>',
                '<line class="', circularRange.CLASS_NAMES.indicator, '" ',
                  'x1="', circularRange.DISPLAY.boxSize / 2, '" ',
                  'y1="', circularRange.DISPLAY.boxSize / 2, '" ',
                  'x2="', circularRange.DISPLAY.boxSize / 2, '" ',
-                 'y2="', circularRange.DISPLAY.boxSize / 2 + circularRange.DISPLAY.arcRadius, '">',
+                 'y2="', circularRange.DISPLAY.boxSize / 2 + circularRange.DISPLAY.arcRadius, '"></line>',
            '</svg>'].join('')
   };
 
@@ -156,22 +162,32 @@
     },
     createDOM: function () {
       var container = stringToDom(circularRange.domStrings.container)[0],
-          basicArc;
+          circle,
+          meter,
+          basicArc,
+          defs;
 
       this.input.parentNode.insertBefore(container, this.input);
       container.innerHTML = circularRange.domStrings.svg;
       container.appendChild(this.input);
 
-      basicArc = container.getElementsByClassName(circularRange.CLASS_NAMES.basicArc)[0];
+      this.svgEl = container.firstChild;
+      this.indicator = container.getElementsByClassName(circularRange.CLASS_NAMES.indicator)[0];
+      this.activeArc = container.getElementsByClassName(circularRange.CLASS_NAMES.activeArc)[0];
+      defs = container.getElementsByTagName('defs')[0];
+
+      circle = container.getElementsByClassName(circularRange.CLASS_NAMES.circle)[0];
+      circle.setAttribute('d', this.describeArc(359));
+      meter = container.getElementsByClassName(circularRange.CLASS_NAMES.basicArc)[0];
+      meter.setAttribute('d', this.describeArc(circularRange.DISPLAY.arcAngle));
+      basicArc = container.getElementsByClassName(circularRange.CLASS_NAMES.meter)[0];
       basicArc.setAttribute('d', this.describeArc(circularRange.DISPLAY.arcAngle));
 
       if (this.options.theme) {
         container.className += ' circ-range--' + this.options.theme;
       }
 
-      this.svgEl = container.firstChild;
-      this.indicator = container.getElementsByClassName(circularRange.CLASS_NAMES.indicator)[0];
-      this.activeArc = container.getElementsByClassName(circularRange.CLASS_NAMES.activeArc)[0];
+      defs.innerHTML = this.options.svgDefs;
     },
     addEventHandlers: function () {
       var self = this;

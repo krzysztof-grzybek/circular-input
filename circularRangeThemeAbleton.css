@@ -4,6 +4,13 @@
   padding: 5px;
   background-color: #8D8D8D;
 }
+.circ-range--ableton .circ-range__meter {
+  display: none;
+}
+.circ-range--ableton .circ-range__circle {
+  stroke: none;
+  fill: none;
+}
 .circ-range--ableton .circ-range__svg {
   display: block;
   width: 36px;

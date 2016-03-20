@@ -1,0 +1,39 @@
+.circ-range--reason {
+  display: inline-block;
+  width: 36px;
+  padding: 5px;
+  background-color: #5F6D56;
+}
+.circ-range--reason .circ-range__meter {
+  fill: none;
+  stroke-dasharray: 1, 5;
+  stroke: white;
+  stroke-width: 9px;
+}
+.circ-range--reason .circ-range__circle {
+  fill: url(#myPattern);
+  filter: url(#blur-filter);
+}
+.circ-range--reason .circ-range__svg {
+  display: block;
+  width: 26px;
+  margin: auto;
+}
+.circ-range--reason .circ-range__active-arc,
+.circ-range--reason .circ-range__basic-arc {
+  display: none;
+}
+.circ-range--reason .circ-range__indicator {
+  stroke: white;
+  stroke-linecap: round;
+  stroke-width: 3px;
+}
+.circ-range--reason input {
+  display: none;
+}
+.circ-range--reason input:focus {
+  border-color: black;
+  outline: 0;
+  background-color: #BFBFBF;
+}
+
