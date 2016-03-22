@@ -133,10 +133,10 @@
                '<path class="', circularRange.CLASS_NAMES.basicArc, '"></path>',
                '<path class="', circularRange.CLASS_NAMES.activeArc, '"></path>',
                '<line class="', circularRange.CLASS_NAMES.indicator, '" ',
-                 'x1="', circularRange.DISPLAY.boxSize / 2, '" ',
-                 'y1="', circularRange.DISPLAY.boxSize / 2, '" ',
-                 'x2="', circularRange.DISPLAY.boxSize / 2, '" ',
-                 'y2="', circularRange.DISPLAY.boxSize / 2 + circularRange.DISPLAY.arcRadius, '"></line>',
+                 'x1="0" ',
+                 'y1="0" ',
+                 'x2="0" ',
+                 'y2="', circularRange.DISPLAY.arcRadius, '"></line>',
            '</svg>'].join('')
   };
 
@@ -181,7 +181,7 @@
       meter = container.getElementsByClassName(circularRange.CLASS_NAMES.basicArc)[0];
       meter.setAttribute('d', this.describeArc(circularRange.DISPLAY.arcAngle));
       basicArc = container.getElementsByClassName(circularRange.CLASS_NAMES.meter)[0];
-      basicArc.setAttribute('d', this.describeArc(circularRange.DISPLAY.arcAngle));
+      basicArc.setAttribute('d', this.describeArc(circularRange.DISPLAY.arcAngle, circularRange.DISPLAY.arcRadius + 2));
 
       if (this.options.theme) {
         container.className += ' circ-range--' + this.options.theme;
@@ -239,26 +239,36 @@
     },
     updateCricleView: function () {
       var valueProgress,
-          activeAngle;
+          activeAngle,
+          rotation,
+          translation;
 
       valueProgress = this.value / (this.options.max - this.options.min);
       activeAngle = valueProgress * circularRange.DISPLAY.arcAngle;
+      rotation = this.getIndicatorRotation(activeAngle);
+      translation = this.getIndicatorTranslation();
 
-      this.indicator.style.transform = this.getRotateStyle(activeAngle);
+      this.indicator.setAttribute('transform', translation + ' ' + rotation);
+      //this.indicator.style.transform = this.getRotateStyle(activeAngle);
       this.activeArc.setAttribute('d', this.describeArc(activeAngle));
     },
     updateInputView: function () {
       this.input.value = this.value;
     },
-    getRotateStyle: function (angle) {
+    getIndicatorRotation: function (angle) {
       var additionalRotation = (360 - circularRange.DISPLAY.arcAngle) / 2;
-      return  'rotate(' + (angle + additionalRotation) + 'deg)';
+      return  'rotate(' + (angle + additionalRotation) + ' 0 0)';
     },
-    describeArc: function (angle) {
+    getIndicatorTranslation: function () {
+      var translationVal = circularRange.DISPLAY.boxSize / 2;
+      return 'translate(' + translationVal + ' ' + translationVal + ')';
+    },
+    describeArc: function (angle, radius) {
       var additionalRotation = 90 + (360 - circularRange.DISPLAY.arcAngle) / 2,
           x = circularRange.DISPLAY.boxSize / 2,
-          y = circularRange.DISPLAY.boxSize / 2;
-      return describeArc(x, y, circularRange.DISPLAY.arcRadius, additionalRotation, angle + additionalRotation);
+          y = circularRange.DISPLAY.boxSize / 2,
+          radius = typeof radius !== 'undefined' ? radius : circularRange.DISPLAY.arcRadius;
+      return describeArc(x, y, radius, additionalRotation, angle + additionalRotation);
     },
     validateValue: function () {
       this.value = this.options.min + Math.round((this.value - this.options.min) / this.options.step) * this.options.step;

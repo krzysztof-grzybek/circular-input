@@ -7,8 +7,9 @@
 .circ-range--reason .circ-range__meter {
   fill: none;
   stroke-dasharray: 1, 5;
+  stroke-dashoffset: 2px;
   stroke: white;
-  stroke-width: 9px;
+  stroke-width: 4px;
 }
 .circ-range--reason .circ-range__circle {
   fill: url(#myPattern);
@@ -30,10 +31,5 @@
 }
 .circ-range--reason input {
   display: none;
-}
-.circ-range--reason input:focus {
-  border-color: black;
-  outline: 0;
-  background-color: #BFBFBF;
 }
 

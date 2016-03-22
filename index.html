@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="circularRange.css">
     <link rel="stylesheet" href="circularRangeThemeAbleton.css">
     <link rel="stylesheet" href="circularRangeThemeReason.css">
+    <link rel="stylesheet" href="circularRangeThemeFruity.css">
 </head>
 <body>
 
@@ -16,7 +17,7 @@
   <input id="example-reason" type="text">
 </div>
 <div>
-  <input id="example-reason" type="text">
+  <input id="example-fruity" type="text">
 </div>
 
 
@@ -42,12 +43,28 @@
       '<feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />',
       '<feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />',
       '<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />',
-    '</filter>'];
+    '</filter>'].join('');
   var exampleReason = document.getElementById('example-reason');
   circularRange(exampleReason, {
     max: 1000,
     theme: 'reason',
     svgDefs: reasonDefs
+  });
+
+  var fruityDefs = ['<filter id="blur">',
+        '<feGaussianBlur in="SourceImage" stdDeviation = "0.4" result = "blur1"/>',
+    '</filter>',
+    '<filter id = "polish">',
+        '<feGaussianBlur in = "SourceAlpha" stdDeviation = "0.6" result = "blur1"/>',
+        '<feSpecularLighting result = "specOut" in = "blur1" specularConstant = "70.5" specularExponent = "30" lighting-color = "#bbbbbb">',
+            '<feDistantLight azimuth = "-120" elevation = "15"/>',
+        '</feSpecularLighting>',
+        '<feComposite in = "SourceGraphic" in2 = "specOut" operator = "arithmetic" k1 = "0" k2 = "1" k3 = "1" k4 = "0"/>',
+    '</filter>'].join('');
+  var exampleFruity = document.getElementById('example-fruity');
+  circularRange(exampleFruity, {
+    theme: 'fruity',
+    svgDefs: fruityDefs
   });
 </script>
 </body>
