@@ -129,14 +129,13 @@
              'version="1.1" xmlns="http://www.w3.org/2000/svg">',
                '<defs></defs>',
                '<path class="', circularRange.CLASS_NAMES.meter,'"></path>',
-               '<path class="', circularRange.CLASS_NAMES.circle,'"></path>',
+               '<circle ',
+                 'cx="', circularRange.DISPLAY.boxSize/2, '" ',
+                 'cy="', circularRange.DISPLAY.boxSize/2, '" r="14" ',
+                 'class="', circularRange.CLASS_NAMES.circle,'"></circle>',
                '<path class="', circularRange.CLASS_NAMES.basicArc, '"></path>',
                '<path class="', circularRange.CLASS_NAMES.activeArc, '"></path>',
-               '<line class="', circularRange.CLASS_NAMES.indicator, '" ',
-                 'x1="0" ',
-                 'y1="0" ',
-                 'x2="0" ',
-                 'y2="', circularRange.DISPLAY.arcRadius, '"></line>',
+               '<line class="', circularRange.CLASS_NAMES.indicator, '" x1="0" y1="0" x2="0" y2="', circularRange.DISPLAY.arcRadius, '"></line>',
            '</svg>'].join('')
   };
 
