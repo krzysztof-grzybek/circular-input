@@ -5,81 +5,8 @@
     <title>Document</title>
     <link rel="stylesheet" href="circularRange.css">
     <link rel="stylesheet" href="circularRangeThemeAbleton.css">
+    <link rel="stylesheet" href="circularRangeThemeReason.css">
     <link rel="stylesheet" href="circularRangeThemeFruity.css">
-    <style>
-      .circ-range--reason {
-        display: inline-block;
-        width: 36px;
-        padding: 5px;
-        background-color: #5F6D56;
-      }
-      .circ-range--reason .circ-range__meter {
-        fill: none;
-        stroke-dasharray: 1, 5;
-        stroke-dashoffset: 2px;
-        stroke: white;
-        stroke-width: 4px;
-      }
-      .circ-range--reason .circ-range__circle {
-        fill: url(#myPattern);
-        filter: url(#blur-filter);
-      }
-      .circ-range--reason .circ-range__svg {
-        display: block;
-        width: 26px;
-        margin: auto;
-      }
-      .circ-range--reason .circ-range__active-arc,
-      .circ-range--reason .circ-range__basic-arc {
-        display: none;
-      }
-      .circ-range--reason .circ-range__indicator {
-        stroke: white;
-        stroke-linecap: round;
-        stroke-width: 3px;
-      }
-      .circ-range--reason input {
-        display: none;
-      }
-
-      .circ-range--fruity {
-        display: inline-block;
-        padding: 5px;
-        background-color: #5F6A6E;
-      }
-      .circ-range--fruity .circ-range__meter {
-        stroke: white;
-        fill: none;
-        filter: url(#blur)
-      }
-      .circ-range--fruity .circ-range__circle {
-        stroke: black;
-        stroke-width: 1px;
-        fill: #424649;
-        filter: url(#polish);
-      }
-      .circ-range--fruity .circ-range__svg {
-        display: block;
-        width: 23px;
-        margin: auto;
-
-      }
-      .circ-range--fruity .circ-range__basic-arc {
-        display: none;
-      }
-      .circ-range--fruity .circ-range__active-arc {
-        display: none;
-      }
-      .circ-range--fruity .circ-range__indicator {
-        stroke: white;
-        stroke-width: 2px;
-      }
-      .circ-range--fruity input {
-        display: none;
-      }
-
-
-    </style>
 </head>
 <body>
 
@@ -116,7 +43,10 @@
       '<feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />',
       '<feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />',
       '<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />',
-    '</filter>'].join('');
+    '</filter>',
+    '<style>',
+      '.circ-range--reason .circ-range__circle {fill: url(#myPattern); filter: url(#blur-filter);}',
+    '</style>'].join('');
   var exampleReason = document.getElementById('example-reason');
   circularRange(exampleReason, {
     max: 1000,
@@ -125,15 +55,19 @@
   });
 
   var fruityDefs = ['<filter id="blur">',
-        '<feGaussianBlur in="SourceImage" stdDeviation = "0.4" result = "blur1"/>',
+        '<feGaussianBlur in="SourceGraphic" stdDeviation = "0.4" result = "blur1"/>',
     '</filter>',
     '<filter id = "polish">',
-        '<feGaussianBlur in = "SourceAlpha" stdDeviation = "0.6" result = "blur1"/>',
-        '<feSpecularLighting result = "specOut" in = "blur1" specularConstant = "70.5" specularExponent = "30" lighting-color = "#bbbbbb">',
+        '<feGaussianBlur in = "SourceGraphic" stdDeviation = "0.6" result = "blur2"/>',
+        '<feSpecularLighting result = "specOut" in = "blur2" specularConstant = "70.5" specularExponent = "30" lighting-color = "#bbbbbb">',
             '<feDistantLight azimuth = "-120" elevation = "15"/>',
         '</feSpecularLighting>',
         '<feComposite in = "SourceGraphic" in2 = "specOut" operator = "arithmetic" k1 = "0" k2 = "1" k3 = "1" k4 = "0"/>',
-    '</filter>'].join('');
+    '</filter>',
+    '<style>',
+      '.circ-range--fruity .circ-range__meter {filter: url(#blur);}',
+      '.circ-range--fruity .circ-range__circle {filter: url(#polish);}',
+    '</style>'].join('');
   var exampleFruity = document.getElementById('example-fruity');
   circularRange(exampleFruity, {
     theme: 'fruity',

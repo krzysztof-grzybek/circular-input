@@ -11,10 +11,6 @@
   stroke: white;
   stroke-width: 4px;
 }
-.circ-range--reason .circ-range__circle {
-  fill: url(#myPattern);
-  filter: url(#blur-filter);
-}
 .circ-range--reason .circ-range__svg {
   display: block;
   width: 26px;

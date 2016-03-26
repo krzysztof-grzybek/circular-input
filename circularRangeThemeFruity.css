@@ -6,13 +6,11 @@
 .circ-range--fruity .circ-range__meter {
   stroke: white;
   fill: none;
-  filter: url(#blur)
 }
 .circ-range--fruity .circ-range__circle {
   stroke: black;
   stroke-width: 1px;
   fill: #424649;
-  filter: url(#polish);
 }
 .circ-range--fruity .circ-range__svg {
   display: block;

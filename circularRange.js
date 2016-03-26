@@ -223,6 +223,10 @@
       this.input.addEventListener('blur', function () {
         self.keyboardInputValueChange();
       });
+
+      this.svgEl.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+      });
     },
     mouseMoveValueChange: function (e, initalValue, initalMouseY) {
       var mouseMoveDiff,
