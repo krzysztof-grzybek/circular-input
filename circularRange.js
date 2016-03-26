@@ -30,10 +30,12 @@
     return div.childNodes;
   }
 
-  function stringToSvg (s) {
-    var div= document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
-    div.innerHTML= '<svg xmlns="http://www.w3.org/2000/svg">'+s+'</svg>';
-    var frag= document.createDocumentFragment();
+  function stringToSvg (string) {
+    var div,
+        frag;
+    div = document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
+    div.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg">' + string + '</svg>';
+    frag = document.createDocumentFragment();
     while (div.firstChild.firstChild) {
       frag.appendChild(div.firstChild.firstChild);
     }
@@ -50,7 +52,7 @@
   }
 
   function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
-    var angleInRadians = (angleInDegrees) * Math.PI / 180.0; // + 90 + 30 - half of 'hole' part in arc
+    var angleInRadians = (angleInDegrees) * Math.PI / 180.0;
 
     return {
       x: centerX + (radius * Math.cos(angleInRadians)),
@@ -258,7 +260,6 @@
       translation = this.getIndicatorTranslation();
 
       this.indicator.setAttribute('transform', translation + ' ' + rotation);
-      //this.indicator.style.transform = this.getRotateStyle(activeAngle);
       this.activeArc.setAttribute('d', this.describeArc(activeAngle));
     },
     updateInputView: function () {
