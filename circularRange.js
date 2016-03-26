@@ -30,6 +30,16 @@
     return div.childNodes;
   }
 
+  function stringToSvg (s) {
+    var div= document.createElementNS('http://www.w3.org/1999/xhtml', 'div');
+    div.innerHTML= '<svg xmlns="http://www.w3.org/2000/svg">'+s+'</svg>';
+    var frag= document.createDocumentFragment();
+    while (div.firstChild.firstChild) {
+      frag.appendChild(div.firstChild.firstChild);
+    }
+    return frag;
+  }
+
   function extend (rootObj, extendingObj) {
     for (var i in extendingObj) {
       if (extendingObj.hasOwnProperty(i)) {
@@ -186,7 +196,7 @@
         container.className += ' circ-range--' + this.options.theme;
       }
 
-      defs.innerHTML = this.options.svgDefs;
+      defs.appendChild(stringToSvg(this.options.svgDefs));
     },
     addEventHandlers: function () {
       var self = this;
