@@ -11,11 +11,15 @@
 <body>
 <div>
   <input id="example-ableton" type="text">
+  <input id="example-ableton" type="text">
+  <input id="example-ableton" type="text">
+  <input id="example-ableton" type="text">
 </div>
 <div>
   <input id="example-reason" type="text">
 </div>
 <div>
+  <span id="fruity-value"></span>
   <input id="example-fruity" type="text">
 </div>
 
@@ -72,6 +76,10 @@
     theme: 'fruity',
     svgDefs: fruityDefs
   });
+  exampleFruity.addEventListener('change', function (e) {
+    console.log(e);
+    document.getElementById('fruity-value').innerHTML = exampleFruity.value;
+  })
 </script>
 </body>
 </html>

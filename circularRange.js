@@ -74,6 +74,20 @@
     return d;
   }
 
+  var triggerEvent = (function () {
+    if (document.createEvent) {
+      return function (target, type) {
+        var event = new Event(type);
+        target.dispatchEvent(event);
+      }
+    } else {
+      return function (target, type) {
+        var event = document.createEventObject();
+        target.fireEvent('on' + type, event);
+      }
+    }
+  })();
+
   function circularRange (element, options) {
     if (!(this instanceof circularRange)) { // force 'new' keyword
       return new circularRange(element, options);
@@ -268,6 +282,7 @@
     },
     updateInputView: function () {
       this.input.value = this.value;
+      triggerEvent(this.input, 'change');
     },
     getIndicatorRotation: function (angle) {
       var additionalRotation = (360 - circularRange.DISPLAY.arcAngle) / 2;
