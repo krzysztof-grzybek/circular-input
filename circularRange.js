@@ -88,6 +88,19 @@
     }
   })();
 
+  function getDecimalPartLength (number) {
+    var numberParts = number.toString().split('.');
+    if (numberParts.length === 1) {
+      return 0;
+    } else if (numberParts.length > 1){
+      return numberParts.pop().length;
+    }
+  }
+
+  function roundTo (value, decimals) {
+    return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+  }
+
   function circularRange (element, options) {
     if (!(this instanceof circularRange)) { // force 'new' keyword
       return new circularRange(element, options);
@@ -96,7 +109,7 @@
     if (isNodeList(element)) {
       var elementsArray = [];
       for (var i = 0; i < element.length; i++) {
-        elementsArray.push(new circularRange(element[i]));
+        elementsArray.push(new circularRange(element[i], options));
       }
       return elementsArray;
     }
@@ -120,6 +133,8 @@
 
     this.value = this.input.value ? Number(this.input.value) : this.options.min;
     this.pxPerStep = this.options.sensivity / ((this.options.max - this.options.min) / this.options.step);
+    this.decimalPartLength = getDecimalPartLength(this.options.step);
+    console.log(this.decimalPartLength);
 
     this.init();
     return this;
@@ -281,7 +296,7 @@
       this.activeArc.setAttribute('d', this.describeArc(activeAngle));
     },
     updateInputView: function () {
-      this.input.value = this.value;
+      this.input.value = this.value.toFixed(this.decimalPartLength);
       triggerEvent(this.input, 'change');
     },
     getIndicatorRotation: function (angle) {
@@ -304,6 +319,7 @@
 
       this.value = this.value <= this.options.max ? this.value : this.options.max;
       this.value = this.value >= this.options.min ? this.value : this.options.min;
+      this.value = roundTo(this.value, this.decimalPartLength);
     }
   };
 

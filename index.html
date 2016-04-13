@@ -6,29 +6,27 @@
     <link rel="stylesheet" href="circularRange.css">
     <link rel="stylesheet" href="dist/circularRangeThemeAbleton.css">
     <link rel="stylesheet" href="dist/circularRangeThemeReason.css">
-    <link rel="stylesheet" href="dist/circularRangeThemeFruity.css">
 </head>
 <body>
 <div>
-  <input id="example-ableton" type="text">
-  <input id="example-ableton" type="text">
-  <input id="example-ableton" type="text">
+  <input id="example-no-theme" type="text">
+</div>
+<div>
   <input id="example-ableton" type="text">
 </div>
 <div>
   <input id="example-reason" type="text">
 </div>
-<div>
-  <span id="fruity-value"></span>
-  <input id="example-fruity" type="text">
-</div>
-
 
 <script src="dist/circularRange.min.js"></script>
 <script>
+  var exampleNoTheme = document.getElementById('example-no-theme');
+  circularRange(exampleNoTheme);
+
   var exampleAbleton = document.getElementById('example-ableton');
   circularRange(exampleAbleton, {
-    max: 50,
+    max: 20,
+    step: 0.2,
     theme: 'ableton'
   });
 
@@ -56,30 +54,6 @@
     theme: 'reason',
     svgDefs: reasonDefs
   });
-
-  var fruityDefs = ['<filter id="blur">',
-        '<feGaussianBlur in="SourceGraphic" stdDeviation = "0.4" result = "blur1"/>',
-    '</filter>',
-    '<filter id = "polish">',
-        '<feGaussianBlur in = "SourceGraphic" stdDeviation = "0.6" result = "blur2"/>',
-        '<feSpecularLighting result = "specOut" in = "blur2" specularConstant = "70.5" specularExponent = "30" lighting-color = "#bbbbbb">',
-            '<feDistantLight azimuth = "-120" elevation = "15"/>',
-        '</feSpecularLighting>',
-        '<feComposite in = "SourceGraphic" in2 = "specOut" operator = "arithmetic" k1 = "0" k2 = "1" k3 = "1" k4 = "0"/>',
-    '</filter>',
-    '<style>',
-      '.circ-range--fruity .circ-range__meter {filter: url(#blur);}',
-      '.circ-range--fruity .circ-range__circle {filter: url(#polish);}',
-    '</style>'].join('');
-  var exampleFruity = document.getElementById('example-fruity');
-  circularRange(exampleFruity, {
-    theme: 'fruity',
-    svgDefs: fruityDefs
-  });
-  exampleFruity.addEventListener('change', function (e) {
-    console.log(e);
-    document.getElementById('fruity-value').innerHTML = exampleFruity.value;
-  })
 </script>
 </body>
 </html>
