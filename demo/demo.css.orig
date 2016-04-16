@@ -1,0 +1,220 @@
+body {
+  margin: 0;
+  font: 400 16px 'Lato';
+}
+h1 {
+  text-align: center;
+}
+.clearfix:before,
+.clearfix:after {
+  content:"";
+  display:table;
+}
+.clearfix:after {
+  clear:both;
+}
+.clearfix {
+  zoom:1; /* For IE 6/7 (trigger hasLayout) */
+}
+.section {
+<<<<<<< HEAD
+=======
+/*  padding: 50px 15px;*/
+>>>>>>> f10e6136b3ba958f01f345bc9639261cae0ca1a8
+  padding: 10px 15px;
+  padding-bottom: 50px;
+  max-width: 1200px;
+  margin: 15px auto;
+}
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* no theme */
+
+.section--no-theme {
+  border: 1px solid grey;
+}
+.no-theme-box {
+  max-width: 100px;
+  margin: auto;
+  text-align: center;
+}
+/* ableton */
+
+.section--ableton {
+  background-color: #515151;
+}
+.ableton-box {
+  max-width: 285px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 5px;
+  background-color: #8D8D8D;
+}
+.ableton-box__head {
+  padding: 3px 5px;
+  background-color: #B5B2B1;
+  font-weight: 700;
+  font-style: italic;
+}
+.ableton-box__toggle {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  border: 1px solid #404040;
+  border-radius: 50%;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #8D8D8D;
+}
+.ableton-box__toggle:before {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  border: 2px solid #F1C117;
+  border-radius: 50%;
+  z-index: 1;
+  background-color: #999999;
+}
+.ableton-box.off .ableton-box__toggle:before {
+  border-color: black;
+}
+.ableton-box__toggle:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -4px;
+  margin-left: -1px;
+  height: 8px;
+  width: 2px;
+  z-index: 10;
+  background-color: #F1C117;
+}
+.ableton-box.off .ableton-box__toggle:after {
+  background-color: black;
+}
+.ableton-box__title {
+  vertical-align: middle;
+}
+.ableton-box__body {
+  padding: 5px;
+}
+.ableton-box__gain-container,
+.ableton-box__eq-container {
+  float: none;
+}
+@media only screen and (min-width: 500px) {
+  .ableton-box__gain-container {
+    float: left;
+    margin-right: 50px;
+  }
+  .ableton-box__eq-container {
+    float: left;
+  }
+}
+.ableton-box__input-container {
+  float: left;
+}
+.ableton-box__input-label {
+  margin-bottom: -3px;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* plugin elements modifications */
+.ableton-box.off .circ-input--ableton .circ-input__active-arc {
+  stroke: #BAC1CE;
+}
+.ableton-box.off .circ-input--ableton .circ-input__basic-arc,
+.ableton-box.off .circ-input--ableton .circ-input__indicator{
+  stroke: #5B5B5B;
+}
+.ableton-box.off .circ-input--ableton input:focus {
+  background-color: #8D8D8D;
+}
+
+/* reason */
+
+.section--reason {
+  background-color: #DADADA;
+}
+.reason-box {
+  position: relative;
+  max-width: 92px;
+  margin: auto;
+  background-color: #5F6D56;
+  color: #fff;
+}
+.reason-box__pitch-row {
+  padding-top: 5px;
+}
+.reason-box__pitch-row:after{
+  content: '';
+  display: block;
+  height: 4px;
+  background-color: #3A4A47;
+}
+.reason-box__start-row {
+  padding-top: 4px;
+}
+.reason-box__input-container {
+  position: relative;
+}
+.circ-input--reason {
+  display: block;
+  margin: auto;
+}
+.reason-box__input-label {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -2px;
+  font-size: 8px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.reason-box__col {
+  float: left;
+  width: 50%;
+}
+.reason-box__arrow {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  margin-left: -6px;
+  width: 12px;
+}
+.reason-box__lamp {
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  margin-left: -3px;
+  width: 5px;
+  height: 5px;
+  border: 1px solid grey;
+  border-radius: 50%;
+  background-color: #462F2D;
+}
+.reason-box__lamp.on {
+  background-color: #D13841;
+}
+
+/* plugin elements modifications */
+.reason-box__col--vel .circ-input__svg {
+  width: 21px;
+  margin-top: 3px;
+}
+.reason-box__col--vel .reason-box__input-label {
+  margin-top: 0;
+}
+.reason-box__col--vel .circ-input__indicator {
+  stroke: #C36061;
+}
