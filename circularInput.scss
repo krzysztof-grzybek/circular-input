@@ -1,24 +1,24 @@
-.circ-range {
+.circ-input {
   display: inline-block;
 }
-.circ-range__svg {
+.circ-input__svg {
   width: 50px;
 }
-.circ-range__svg {
+.circ-input__svg {
   fill: #fff;
 }
-.circ-range__basic-arc {
+.circ-input__basic-arc {
   fill: none;
   stroke: #808080;
 }
-.circ-range__active-arc {
+.circ-input__active-arc {
   fill: none;
 }
-.circ-range__indicator {
+.circ-input__indicator {
   stroke-linecap: round;
   stroke: #808080;
 }
-.circ-range input {
+.circ-input input {
   display: block;
   width: 30px;
   margin: auto;

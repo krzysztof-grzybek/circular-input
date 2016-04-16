@@ -1,18 +1,18 @@
 {
-  "name": "circular-range",
+  "name": "circular-input",
   "version": "1.0.0",
   "description": "Highly customizable circular input.",
-  "main": "circularRange.js",
+  "main": "dist/circularInput.min.js",
   "scripts": {
     "serve": "browser-sync start --server --files \"dist/*, index.html\"",
     "watch:all": "parallelshell \"npm run serve\" \"npm run watch:js\" \"npm run watch:css\"",
     "watch:js": "onchange \"*.js\" -- npm run build:js",
-    "watch:css": "onchange \"themes/*.scss\" -- npm run build:css",
+    "watch:css": "onchange \"**/*.scss\" -- npm run build:css",
     "build:js": "npm run uglify",
     "build:css": "npm run sass && npm run autoprefixer",
-    "sass": "node-sass --output-style compressed -o dist themes",
+    "sass": "node-sass --output-style compressed -o dist circularInput.scss && node-sass --output-style compressed -o dist themes",
     "autoprefixer": "postcss -u autoprefixer -r dist/*.css",
-    "uglify": "uglifyjs circularRange.js -m -c -o dist/circularRange.min.js"
+    "uglify": "uglifyjs circularInput.js -m -c -o dist/circularInput.min.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
     "svg"
   ],
   "author": "Krzysztof Grzybek",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://bitbucket.org/krzysiekgrzybek/circularrange#readme",
   "devDependencies": {
     "autoprefixer": "^6.3.6",

@@ -6,14 +6,14 @@
   } else if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = factory();
   } else {
-    window['circularRange'] = factory();
+    window.circularInput = factory();
   }
 
 })(function () {
   'use strict';
 
   var elementsAmount = 0,
-      uid = 'circularRange' + new Date().getTime(),
+      uid = 'circularInput' + new Date().getTime(),
       cache = [];
 
   function isNodeList (object) {
@@ -102,15 +102,15 @@
     return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
   }
 
-  function circularRange (element, options) {
-    if (!(this instanceof circularRange)) { // force 'new' keyword
-      return new circularRange(element, options);
+  function circularInput (element, options) {
+    if (!(this instanceof circularInput)) { // force 'new' keyword
+      return new circularInput(element, options);
     }
 
     if (isNodeList(element)) {
       var elementsArray = [];
       for (var i = 0; i < element.length; i++) {
-        elementsArray.push(new circularRange(element[i], options));
+        elementsArray.push(new circularInput(element[i], options));
       }
       return elementsArray;
     }
@@ -128,20 +128,19 @@
     this.indicator = null;
     this.activeArc = null;
 
-    this.options = extend({}, circularRange.DEFAULTS);
+    this.options = extend({}, circularInput.DEFAULTS);
     this.options = extend(this.options, this.getDomOptions());
     this.options = extend(this.options, options);
 
     this.value = this.input.value ? Number(this.input.value) : this.options.min;
     this.pxPerStep = this.options.sensivity / ((this.options.max - this.options.min) / this.options.step);
     this.decimalPartLength = getDecimalPartLength(this.options.step);
-    console.log(this.decimalPartLength);
 
     this.init();
     return this;
   }
 
-  circularRange.DEFAULTS = {
+  circularInput.DEFAULTS = {
     min: 0,
     max: 100,
     step: 5,
@@ -150,41 +149,41 @@
     svgDefs: '',
   };
 
-  circularRange.CLASS_NAMES = {
-    meter: 'circ-range__meter',
-    circle: 'circ-range__circle',
-    basicArc: 'circ-range__basic-arc',
-    activeArc: 'circ-range__active-arc',
-    indicator: 'circ-range__indicator'
+  circularInput.CLASS_NAMES = {
+    meter: 'circ-input__meter',
+    circle: 'circ-input__circle',
+    basicArc: 'circ-input__basic-arc',
+    activeArc: 'circ-input__active-arc',
+    indicator: 'circ-input__indicator'
   };
 
-  circularRange.DISPLAY = {
+  circularInput.DISPLAY = {
     arcAngle: 300,
     arcRadius: 14,
     boxSize: 36
   };
 
-  circularRange.domStrings = {
-    container: '<div class="circ-range"></div>',
-    svg : ['<svg class="circ-range__svg" ',
-             'viewBox="0 0 ', circularRange.DISPLAY.boxSize, ' ', circularRange.DISPLAY.boxSize , '" ',
+  circularInput.domStrings = {
+    container: '<div class="circ-input"></div>',
+    svg : ['<svg class="circ-input__svg" ',
+             'viewBox="0 0 ', circularInput.DISPLAY.boxSize, ' ', circularInput.DISPLAY.boxSize , '" ',
              'version="1.1" xmlns="http://www.w3.org/2000/svg">',
                '<defs></defs>',
-               '<path class="', circularRange.CLASS_NAMES.meter,'"></path>',
+               '<path class="', circularInput.CLASS_NAMES.meter,'"></path>',
                '<circle ',
-                 'cx="', circularRange.DISPLAY.boxSize/2, '" ',
-                 'cy="', circularRange.DISPLAY.boxSize/2, '" r="14" ',
-                 'class="', circularRange.CLASS_NAMES.circle,'"></circle>',
-               '<path class="', circularRange.CLASS_NAMES.basicArc, '"></path>',
-               '<path class="', circularRange.CLASS_NAMES.activeArc, '"></path>',
-               '<line class="', circularRange.CLASS_NAMES.indicator, '" x1="0" y1="0" x2="0" y2="', circularRange.DISPLAY.arcRadius, '"></line>',
+                 'cx="', circularInput.DISPLAY.boxSize/2, '" ',
+                 'cy="', circularInput.DISPLAY.boxSize/2, '" r="14" ',
+                 'class="', circularInput.CLASS_NAMES.circle,'"></circle>',
+               '<path class="', circularInput.CLASS_NAMES.basicArc, '"></path>',
+               '<path class="', circularInput.CLASS_NAMES.activeArc, '"></path>',
+               '<line class="', circularInput.CLASS_NAMES.indicator, '" x1="0" y1="0" x2="0" y2="', circularInput.DISPLAY.arcRadius, '"></line>',
            '</svg>'].join('')
   };
 
-  circularRange.prototype = {
+  circularInput.prototype = {
     getDomOptions: function () {
       var domOptions = {},
-          optionNames = Object.keys(circularRange.DEFAULTS);
+          optionNames = Object.keys(circularInput.DEFAULTS);
 
       for (var i = 0; i < optionNames.length; i++) {
         var optionName = optionNames[i],
@@ -202,30 +201,30 @@
       this.updateView();
     },
     createDOM: function () {
-      var container = stringToDom(circularRange.domStrings.container)[0],
+      var container = stringToDom(circularInput.domStrings.container)[0],
           circle,
           meter,
           basicArc,
           defs;
 
       this.input.parentNode.insertBefore(container, this.input);
-      container.innerHTML = circularRange.domStrings.svg;
+      container.innerHTML = circularInput.domStrings.svg;
       container.appendChild(this.input);
 
       this.svgEl = container.firstChild;
-      this.indicator = container.getElementsByClassName(circularRange.CLASS_NAMES.indicator)[0];
-      this.activeArc = container.getElementsByClassName(circularRange.CLASS_NAMES.activeArc)[0];
+      this.indicator = container.getElementsByClassName(circularInput.CLASS_NAMES.indicator)[0];
+      this.activeArc = container.getElementsByClassName(circularInput.CLASS_NAMES.activeArc)[0];
       defs = container.getElementsByTagName('defs')[0];
 
-      circle = container.getElementsByClassName(circularRange.CLASS_NAMES.circle)[0];
+      circle = container.getElementsByClassName(circularInput.CLASS_NAMES.circle)[0];
       circle.setAttribute('d', this.describeArc(359));
-      meter = container.getElementsByClassName(circularRange.CLASS_NAMES.basicArc)[0];
-      meter.setAttribute('d', this.describeArc(circularRange.DISPLAY.arcAngle));
-      basicArc = container.getElementsByClassName(circularRange.CLASS_NAMES.meter)[0];
-      basicArc.setAttribute('d', this.describeArc(circularRange.DISPLAY.arcAngle, circularRange.DISPLAY.arcRadius + 2));
+      meter = container.getElementsByClassName(circularInput.CLASS_NAMES.basicArc)[0];
+      meter.setAttribute('d', this.describeArc(circularInput.DISPLAY.arcAngle));
+      basicArc = container.getElementsByClassName(circularInput.CLASS_NAMES.meter)[0];
+      basicArc.setAttribute('d', this.describeArc(circularInput.DISPLAY.arcAngle, circularInput.DISPLAY.arcRadius + 2));
 
       if (this.options.theme) {
-        container.className += ' circ-range--' + this.options.theme;
+        container.className += ' circ-input--' + this.options.theme;
       }
 
       defs.appendChild(stringToSvg(this.options.svgDefs));
@@ -289,7 +288,7 @@
           translation;
 
       valueProgress = this.value / (this.options.max - this.options.min);
-      activeAngle = valueProgress * circularRange.DISPLAY.arcAngle;
+      activeAngle = valueProgress * circularInput.DISPLAY.arcAngle;
       rotation = this.getIndicatorRotation(activeAngle);
       translation = this.getIndicatorTranslation();
 
@@ -301,18 +300,18 @@
       triggerEvent(this.input, 'change');
     },
     getIndicatorRotation: function (angle) {
-      var additionalRotation = (360 - circularRange.DISPLAY.arcAngle) / 2;
+      var additionalRotation = (360 - circularInput.DISPLAY.arcAngle) / 2;
       return  'rotate(' + (angle + additionalRotation) + ' 0 0)';
     },
     getIndicatorTranslation: function () {
-      var translationVal = circularRange.DISPLAY.boxSize / 2;
+      var translationVal = circularInput.DISPLAY.boxSize / 2;
       return 'translate(' + translationVal + ' ' + translationVal + ')';
     },
     describeArc: function (angle, radius) {
-      var additionalRotation = 90 + (360 - circularRange.DISPLAY.arcAngle) / 2,
-          x = circularRange.DISPLAY.boxSize / 2,
-          y = circularRange.DISPLAY.boxSize / 2,
-          radius = typeof radius !== 'undefined' ? radius : circularRange.DISPLAY.arcRadius;
+      var additionalRotation = 90 + (360 - circularInput.DISPLAY.arcAngle) / 2,
+          x = circularInput.DISPLAY.boxSize / 2,
+          y = circularInput.DISPLAY.boxSize / 2,
+          radius = typeof radius !== 'undefined' ? radius : circularInput.DISPLAY.arcRadius;
       return describeArc(x, y, radius, additionalRotation, angle + additionalRotation);
     },
     validateValue: function () {
@@ -324,5 +323,5 @@
     }
   };
 
-  return circularRange;
+  return circularInput;
 });

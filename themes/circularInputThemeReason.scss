@@ -1,0 +1,33 @@
+.circ-input--reason {
+  display: inline-block;
+  width: 36px;
+  padding: 5px;
+  background-color: #5F6D56;
+
+  .circ-input__meter {
+    fill: none;
+    stroke-dasharray: 1, 5;
+    stroke-dashoffset: 2px;
+    stroke: white;
+    stroke-width: 4px;
+  }
+  .circ-input__svg {
+    display: block;
+    width: 26px;
+    margin: auto;
+  }
+  .circ-input__active-arc,
+  .circ-input__basic-arc {
+    display: none;
+  }
+  .circ-input__indicator {
+    stroke: white;
+    stroke-linecap: round;
+    stroke-width: 2px;
+  }
+  input {
+    display: none;
+  }
+}
+
+
