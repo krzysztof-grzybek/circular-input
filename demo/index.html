@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Circular input</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700italic,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../dist/circularInput.css">
+    <link rel="stylesheet" href="../dist/circularInputThemeAbleton.css">
+    <link rel="stylesheet" href="../dist/circularInputThemeReason.css">
+    <link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<h1>Javascript library for circular inputs. SVG based, Highly customizable.</h1>
+<section class="section section--no-theme">
+  <div class="container">
+    <h2>No theme.</h2>
+    <div class="no-theme-box">
+       <input type="text" id="no-theme">
+    </div>
+  </div>
+</section>
+<section class="section section--ableton">
+  <div class="container">
+    <h2>Ableton Live theme.</h2>
+    <div class="ableton-box" id="ableton-box">
+      <div class="ableton-box__head">
+        <div class="ableton-box__toggle" id="ableton-box-toggle"></div>
+        <span class="ableton-box__title">Amp</span>
+      </div>
+      <div class="ableton-box__body clearfix">
+        <div class="ableton-box__gain-container">
+          <div class="ableton-box__input-container">
+             <div class="ableton-box__input-label">Gain</div>
+            <input class="ableton-input" id="ableton-gain" type="text">
+          </div>
+        </div>
+        <div class="ableton-box__eq-container">
+          <div class="ableton-box__input-container">
+            <div class="ableton-box__input-label">Bass</div>
+            <input class="ableton-input" id="ableton-bass" type="text">
+          </div>
+          <div class="ableton-box__input-container">
+            <div class="ableton-box__input-label">Middle</div>
+            <input class="ableton-input" id="ableton-middle" type="text">
+          </div>
+          <div class="ableton-box__input-container">
+            <div class="ableton-box__input-label">Treble</div>
+            <input class="ableton-input" id="ableton-treble" type="text">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section section--reason">
+  <div class="container">
+    <h2>Reason Redrum machine theme.</h2>
+    <div class="reason-box clearfix">
+      <div class="reason-box__pitch-row">
+        <div class="reason-box__input-container">
+          <input class="reason-input" type="text" value="250" id="reason-pitch-input">
+          <span class="reason-box__input-label">- pitch +</span>
+          <div class="reason-box__lamp" id="pitch-lamp"></div>
+        </div>
+      </div>
+      <div class="reason-box__start-row clearfix">
+        <div class="reason-box__col">
+          <div class="reason-box__input-container">
+            <input class="reason-input" type="text">
+            <span class="reason-box__input-label">start</span>
+          </div>
+        </div>
+        <div class="reason-box__col reason-box__col--vel">
+          <div class="reason-box__input-container">
+            <input class="reason-input reason-input--vel" type="text" value="250" id="reason-vel-input">
+            <span class="reason-box__input-label">vel</span>
+            <div class="reason-box__lamp" id="vel-lamp"></div>
+          </div>
+        </div>
+        <img class="reason-box__arrow" src="img/arrow.svg" alt="arrow">
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="../dist/circularInput.min.js"></script>
+<script>
+  var noThemeInput = document.getElementById('no-theme');
+  circularInput(noThemeInput);
+
+  var abletonInputs = document.getElementsByClassName('ableton-input');
+  circularInput(abletonInputs, {
+    min: 0,
+    max: 10,
+    step: 0.01,
+    theme: 'ableton'
+  });
+
+  var reasonDefs = ['<radialGradient id="myGradient">',
+     '<stop offset="65%" stop-color="#262523" stop-opacity="1"></stop>',
+      '<stop offset="85%" stop-color="#262523" stop-opacity="0.8"></stop>',
+      '<stop offset="100%" stop-color="#262523" stop-opacity="0"></stop>',
+    '</radialGradient>',
+    '<pattern id="myPattern" x="0" y="0" width="1" height="1">',
+      '<rect width="36" height="36" fill="grey"></rect>',
+      '<circle cx="-18" cy="18" r="36" fill="url(#myGradient)"></circle>',
+      '<circle cx="50" cy="18" r="36" fill="url(#myGradient)"></circle>',
+    '</pattern>',
+    '<filter id="blur-filter" x="-4" y="-4" width="200" height="200">',
+      '<feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />',
+      '<feGaussianBlur result="blurOut" in="offOut" stdDeviation="2" />',
+      '<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />',
+    '</filter>',
+    '<style>',
+      '.circ-input--reason .circ-input__circle {fill: url(#myPattern); filter: url(#blur-filter);}',
+    '</style>'].join('');
+  var reasonInputs = document.getElementsByClassName('reason-input');
+  circularInput(reasonInputs, {
+    max: 500,
+    theme: 'reason',
+    svgDefs: reasonDefs
+  });
+</script>
+<script src="demo.js"></script>
+</body>
+</html>
