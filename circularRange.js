@@ -77,7 +77,8 @@
   var triggerEvent = (function () {
     if (document.createEvent) {
       return function (target, type) {
-        var event = new Event(type);
+        var event = document.createEvent('Event');
+        event.initEvent(type, true, true);
         target.dispatchEvent(event);
       }
     } else {
