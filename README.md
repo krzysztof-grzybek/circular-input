@@ -1,7 +1,7 @@
 # circular-input
 Highly customizable circular input.
 
-__<a href="http://krzysztof-grzybek.github.io/circular-input/demo" target="_blank">Demo Page</a>__
+__<a href="http://krzysztof-grzybek.github.io/circular-input" target="_blank">Demo Page</a>__
 
 Usage
 -------
