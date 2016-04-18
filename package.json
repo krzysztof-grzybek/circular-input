@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/krzysiekgrzybek/circularrange.git"
+    "url": "git@github.com:krzysztof-grzybek/circular-input.git"
   },
   "keywords": [
     "circular",
@@ -25,7 +25,7 @@
   ],
   "author": "Krzysztof Grzybek",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/krzysiekgrzybek/circularrange#readme",
+  "homepage": "http://krzysztof-grzybek.github.io/circular-input/demo",
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "browser-sync": "^2.11.2",
