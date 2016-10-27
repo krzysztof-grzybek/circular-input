@@ -266,16 +266,11 @@
       mouseMoveDiff = -(e.pageY - initalMouseY); // if mouse goes up, value increases
       valueDiffAfterMove = Math.round(mouseMoveDiff / this.pxPerStep) * this.options.step;
       finalValue = initalValue + valueDiffAfterMove;
-
-      this.value = finalValue;
-      this.validateValue();
-
-      this.updateView();
+      this.setValue(finalValue);
     },
     keyboardInputValueChange: function () {
-      this.value = parseFloat(this.input.value);
-      this.validateValue();
-      this.updateView();
+      var value = parseFloat(this.input.value);
+      this.setValue(value);
     },
     updateView: function () {
       this.updateCricleView();
@@ -294,6 +289,10 @@
 
       this.indicator.setAttribute('transform', translation + ' ' + rotation);
       this.activeArc.setAttribute('d', this.describeArc(activeAngle));
+    },
+    setValue: function (value) {
+      this.value = this.validateValue(value);
+      this.updateView();
     },
     updateInputView: function () {
       this.input.value = this.value.toFixed(this.decimalPartLength);
@@ -314,12 +313,12 @@
           radius = typeof radius !== 'undefined' ? radius : circularInput.DISPLAY.arcRadius;
       return describeArc(x, y, radius, additionalRotation, angle + additionalRotation);
     },
-    validateValue: function () {
-      this.value = this.options.min + Math.round((this.value - this.options.min) / this.options.step) * this.options.step;
+    validateValue: function (value) {
+      value = this.options.min + Math.round((value - this.options.min) / this.options.step) * this.options.step;
 
-      this.value = this.value <= this.options.max ? this.value : this.options.max;
-      this.value = this.value >= this.options.min ? this.value : this.options.min;
-      this.value = roundTo(this.value, this.decimalPartLength);
+      value = value <= this.options.max ? value : this.options.max;
+      value = value >= this.options.min ? value : this.options.min;
+      return roundTo(value, this.decimalPartLength);
     }
   };
 
